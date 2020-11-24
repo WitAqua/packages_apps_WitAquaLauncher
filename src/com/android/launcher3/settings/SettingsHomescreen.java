@@ -32,7 +32,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -48,13 +47,15 @@ import com.android.launcher3.Flags;
 import com.android.launcher3.LauncherFiles;
 import com.android.launcher3.R;
 import com.android.launcher3.lineage.LineageUtils;
-import com.android.launcher3.lineage.trust.TrustAppsActivity;
+import com.android.launcher3.Utilities;
 import com.android.launcher3.util.SettingsCache;
+
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
 /**
  * Settings activity for Launcher.
  */
-public class SettingsActivity extends FragmentActivity
+public class SettingsHomescreen extends CollapsingToolbarBaseActivity
         implements OnPreferenceStartFragmentCallback, OnPreferenceStartScreenCallback {
 
     public static final String EXTRA_FRAGMENT_ARGS = ":settings:fragment_args";
@@ -67,26 +68,14 @@ public class SettingsActivity extends FragmentActivity
     private static final int DELAY_HIGHLIGHT_DURATION_MILLIS = 600;
     public static final String SAVE_HIGHLIGHTED_KEY = "android:preference_highlighted";
 
-    private static final String KEY_MINUS_ONE = "pref_enable_minus_one";
-    private static final String SEARCH_PACKAGE = "com.google.android.googlequicksearchbox";
-    public static final String KEY_TRUST_APPS = "pref_trust_apps";
-
-    private static final String KEY_SUGGESTIONS = "pref_suggestions";
-    private static final String SUGGESTIONS_PACKAGE = "com.google.android.as";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-        setActionBar(findViewById(R.id.action_bar));
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         Intent intent = getIntent();
-        if (intent.hasExtra(EXTRA_FRAGMENT_ROOT_KEY) || intent.hasExtra(EXTRA_FRAGMENT_ARGS)
-                || intent.hasExtra(EXTRA_FRAGMENT_HIGHLIGHT_KEY)) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         if (savedInstanceState == null) {
             Bundle args = intent.getBundleExtra(EXTRA_FRAGMENT_ARGS);
@@ -105,10 +94,10 @@ public class SettingsActivity extends FragmentActivity
 
             final FragmentManager fm = getSupportFragmentManager();
             final Fragment f = fm.getFragmentFactory().instantiate(getClassLoader(),
-                    getString(R.string.settings_fragment_name));
+                    getString(R.string.home_screen_settings_fragment_name));
             f.setArguments(args);
             // Display the fragment as the main content.
-            fm.beginTransaction().replace(R.id.content_frame, f).commit();
+            fm.beginTransaction().replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame, f).commit();
         }
     }
 
@@ -124,7 +113,7 @@ public class SettingsActivity extends FragmentActivity
             f.setArguments(args);
             ((DialogFragment) f).show(fm, key);
         } else {
-            startActivity(new Intent(this, SettingsActivity.class)
+            startActivity(new Intent(this, SettingsHomescreen.class)
                     .putExtra(EXTRA_FRAGMENT_ARGS, args));
         }
         return true;
@@ -140,7 +129,7 @@ public class SettingsActivity extends FragmentActivity
     public boolean onPreferenceStartScreen(PreferenceFragmentCompat caller, PreferenceScreen pref) {
         Bundle args = new Bundle();
         args.putString(ARG_PREFERENCE_ROOT, pref.getKey());
-        return startPreference(getString(R.string.settings_title), args, pref.getKey());
+        return startPreference(getString(R.string.home_category_title), args, pref.getKey());
     }
 
     @Override
@@ -155,7 +144,7 @@ public class SettingsActivity extends FragmentActivity
     /**
      * This fragment shows the launcher preferences.
      */
-    public static class LauncherSettingsFragment extends PreferenceFragmentCompat implements
+    public static class HomescreenSettingsFragment extends PreferenceFragmentCompat implements
             SettingsCache.OnChangeListener {
 
         private boolean mRestartOnResume = false;
@@ -163,6 +152,10 @@ public class SettingsActivity extends FragmentActivity
         private String mHighLightKey;
 
         private boolean mPreferenceHighlighted = false;
+
+        private static final String KEY_MINUS_ONE = "pref_enable_minus_one";
+        private static final String SEARCH_PACKAGE = "com.google.android.googlequicksearchbox";
+        private Preference mShowGoogleAppPref;
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -179,10 +172,12 @@ public class SettingsActivity extends FragmentActivity
             }
 
             getPreferenceManager().setSharedPreferencesName(LauncherFiles.SHARED_PREFERENCES_KEY);
-            setPreferencesFromResource(R.xml.launcher_preferences, rootKey);
+            setPreferencesFromResource(R.xml.launcher_home_screen_preferences, rootKey);
 
             PreferenceScreen screen = getPreferenceScreen();
 
+            mShowGoogleAppPref = screen.findPreference(KEY_MINUS_ONE);
+            updateIsGoogleAppEnabled();
             // If the target preference is not in the current preference screen, find the parent
             // preference screen that contains the target preference and set it as the preference
             // screen.
@@ -263,6 +258,12 @@ public class SettingsActivity extends FragmentActivity
             outState.putBoolean(SAVE_HIGHLIGHTED_KEY, mPreferenceHighlighted);
         }
 
+        private void updateIsGoogleAppEnabled() {
+            if (mShowGoogleAppPref != null) {
+                mShowGoogleAppPref.setEnabled(LineageUtils.isPackageEnabled(getActivity(), SEARCH_PACKAGE));
+            }
+        }
+
         @Override
         public void onResume() {
             super.onResume();
@@ -274,6 +275,7 @@ public class SettingsActivity extends FragmentActivity
                     mPreferenceHighlighted = true;
                 }
             }
+            updateIsGoogleAppEnabled();
 
             if (mRestartOnResume) {
                 recreateActivityNow();
