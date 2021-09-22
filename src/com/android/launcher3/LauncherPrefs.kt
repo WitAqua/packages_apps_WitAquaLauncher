@@ -248,6 +248,7 @@ constructor(@ApplicationContext private val encryptedContext: Context) {
         @JvmField val DOCK_SEARCH = backedUpItem("pref_dock_search", true)
         @JvmField val DOCK_THEME = backedUpItem("pref_dock_theme", false)
         @JvmField val SEARCH_RADIUS_SIZE = backedUpItem("pref_search_radius_size", 100)
+        @JvmField val SHOW_HOTSEAT_BG = backedUpItem("pref_show_hotseat_bg", false)
         @JvmField val SHOW_DESKTOP_LABELS = backedUpItem("pref_desktop_show_labels", true)
         @JvmField val SHOW_DRAWER_LABELS = backedUpItem("pref_drawer_show_labels", true)
         @JvmField val SHOW_QUICKSPACE = backedUpItem("pref_quickspace", true)
