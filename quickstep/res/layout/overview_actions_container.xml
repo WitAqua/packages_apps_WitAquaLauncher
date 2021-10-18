@@ -96,6 +96,23 @@
                 android:visibility="gone" />
 
             <Space
+                android:id="@+id/action_split_space"
+                android:layout_width="24dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/action_lens"
+                style="@style/OverviewActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_lens"
+                android:tint="?android:attr/colorAccent"
+                android:background="@drawable/bg_overview_clear_all_button"
+                android:visibility="gone" />
+
+            <Space
                 android:id="@+id/end_space"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
