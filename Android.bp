@@ -412,6 +412,7 @@ android_library {
         "libGoogleFeed",
         "org.lineageos.platform",
         "SettingsLib",
+        "chaldea.seraphixgoogle",
     ],
     manifest: "AndroidManifest-common.xml",
     sdk_version: "current",
