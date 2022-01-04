@@ -114,6 +114,7 @@ public class SettingsHomescreen extends CollapsingToolbarBaseActivity
                 LauncherPrefs.SHOW_HOTSEAT_BG.getSharedPrefKey().equals(key) ||
                 LauncherPrefs.HOTSEAT_OPACITY.getSharedPrefKey().equals(key) ||
                 LauncherPrefs.DOCK_MUSIC_SEARCH.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_STATUS_BAR.getSharedPrefKey().equals(key) ||
                 LauncherPrefs.SHOW_STATUS_BAR.getSharedPrefKey().equals(key)) {
             LauncherAppState.INSTANCE.executeIfCreated(app -> app.setNeedsRestart());
         }
