@@ -87,6 +87,7 @@ import com.android.launcher3.icons.IconThemeController;
 import com.android.launcher3.icons.LauncherIcons;
 import com.android.launcher3.model.data.ItemInfo;
 import com.android.launcher3.model.data.ItemInfoWithIcon;
+import com.android.launcher3.lineage.LineageUtils;
 import com.android.launcher3.pm.ShortcutConfigActivityInfo;
 import com.android.launcher3.pm.UserCache;
 import com.android.launcher3.shortcuts.ShortcutKey;
@@ -1020,5 +1021,13 @@ public final class Utilities {
         return Settings.Secure.getInt(context.getContentResolver(),
                 Settings.Secure.SEARCH_ALL_ENTRYPOINTS_ENABLED, 1)
                 == 1;
+    }
+
+    public static boolean showQSB(Context context) {
+        return LineageUtils.isPackageEnabled(context, GSA_PACKAGE) && isQSBEnabled(context);
+    }
+
+    private static boolean isQSBEnabled(Context context) {
+        return LauncherPrefs.DOCK_SEARCH.get(context);
     }
 }
