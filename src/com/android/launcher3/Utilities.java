@@ -161,6 +161,8 @@ public final class Utilities {
 
     public static final String KEY_ALLOW_WALLPAPER_ZOOMING = "pref_allow_wallpaper_zooming";
 
+    public static final String GSA_PACKAGE = "com.google.android.googlequicksearchbox";
+
     /**
      * Returns true if theme is dark.
      */
