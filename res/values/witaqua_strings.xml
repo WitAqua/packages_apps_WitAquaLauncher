@@ -425,4 +425,7 @@
 
     <!-- Homescreen Statusbar -->
     <string name="show_statusbar_title">Status Bar</string>
+
+    <!-- Memory info -->
+    <string name="meminfo_text">%1$s Available | %2$s Total</string>
 </resources>
