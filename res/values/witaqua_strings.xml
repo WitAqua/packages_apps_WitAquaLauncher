@@ -422,4 +422,7 @@
 
     <!-- Row Height -->
     <string name="row_height_title">Row height</string>
+
+    <!-- Homescreen Statusbar -->
+    <string name="show_statusbar_title">Status Bar</string>
 </resources>
