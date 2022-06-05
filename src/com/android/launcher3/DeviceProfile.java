@@ -265,6 +265,7 @@ public class DeviceProfile {
     public final int numShownAllAppsColumns;
     public float allAppsIconTextSizePx;
     private boolean allAppsIconText;
+    private float allAppsCellHeightMultiplier;
 
     // Overview
     public int overviewTaskMarginPx;
@@ -492,6 +493,8 @@ public class DeviceProfile {
         }
 
         allAppsIconText = LauncherPrefs.SHOW_DRAWER_LABELS.get(context);
+        allAppsCellHeightMultiplier =
+                    (float) LauncherPrefs.ROW_HEIGHT.get(context) / 100F;
 
         edgeMarginPx = res.getDimensionPixelSize(R.dimen.dynamic_grid_edge_margin);
         workspaceContentScale = res.getFloat(R.dimen.workspace_content_scale);
@@ -1445,8 +1448,9 @@ public class DeviceProfile {
                 pxFromDp(inv.allAppsBorderSpaces[mTypeIndex].y, mMetrics, scale));
         // AllApps cells don't have real space between cells,
         // so we add the border space to the cell height
-        allAppsCellHeightPx = pxFromDp(inv.allAppsCellSize[mTypeIndex].y, mMetrics)
+        int baseCellHeight = pxFromDp(inv.allAppsCellSize[mTypeIndex].y, mMetrics)
                 + allAppsBorderSpacePx.y;
+        allAppsCellHeightPx = (int) (baseCellHeight * allAppsCellHeightMultiplier);
         // but width is just the cell,
         // the border is added in #updateAllAppsContainerWidth
         if (mIsScalableGrid) {
@@ -1540,8 +1544,9 @@ public class DeviceProfile {
     public void autoResizeAllAppsCells() {
         int textHeight = Utilities.calculateTextHeight(allAppsIconTextSizePx);
         int topBottomPadding = textHeight;
-        allAppsCellHeightPx = allAppsIconSizePx + allAppsIconDrawablePaddingPx
+        int baseCellHeight = allAppsIconSizePx + allAppsIconDrawablePaddingPx
                 + textHeight + (topBottomPadding * 2);
+        allAppsCellHeightPx = (int) (baseCellHeight * allAppsCellHeightMultiplier);
         if (!allAppsIconText) {
             int cellLayoutHorizontalPadding =
                     (cellLayoutPaddingPx.left + cellLayoutPaddingPx.right) / 2;
