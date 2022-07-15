@@ -68,7 +68,8 @@
                 android:id="@+id/action_screenshot_space"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/action_screenshot"
@@ -77,11 +78,12 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_screenshot"
                 android:tint="?android:attr/colorAccent"
-                android:background="@drawable/bg_overview_clear_all_button" />
+                android:background="@drawable/bg_overview_clear_all_button"
+                android:visibility="gone" />
 
             <Space
                 android:id="@+id/action_split_space"
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 android:visibility="gone" />
@@ -96,8 +98,8 @@
                 android:visibility="gone" />
 
             <Space
-                android:id="@+id/action_split_space"
-                android:layout_width="24dp"
+                android:id="@+id/action_lens_space"
+                android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 android:visibility="gone" />
