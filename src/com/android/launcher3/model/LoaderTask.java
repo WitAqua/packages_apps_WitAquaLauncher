@@ -133,7 +133,6 @@ import javax.inject.Named;
 @SuppressWarnings("NewApi")
 public class LoaderTask implements Runnable {
     private static final String TAG = "LoaderTask";
-    public static final String SMARTSPACE_ON_HOME_SCREEN = "pref_smartspace_home_screen";
 
     private static final boolean DEBUG = true;
 
@@ -440,9 +439,7 @@ public class LoaderTask implements Runnable {
         }
         logASplit("loadWorkspace finished");
 
-        mBgDataModel.isFirstPagePinnedItemEnabled = FeatureFlags.QSB_ON_FIRST_SCREEN
-                && (!enableSmartspaceRemovalToggle()
-                || LauncherPrefs.getPrefs(mContext).getBoolean(SMARTSPACE_ON_HOME_SCREEN, true));
+        mBgDataModel.isFirstPagePinnedItemEnabled = FeatureFlags.USE_QUICKSPACE_VIEW;
     }
 
     private void loadWorkspaceImpl(
