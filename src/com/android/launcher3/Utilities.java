@@ -34,6 +34,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.LauncherActivityInfo;
 import android.content.pm.LauncherApps;
+import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -1035,5 +1036,13 @@ public final class Utilities {
 
     public static boolean isMusicSearchEnabled(Context context) {
         return LauncherPrefs.DOCK_MUSIC_SEARCH.get(context);
+    }
+
+    public static boolean isGSAEnabled(Context context) {
+        try {
+            return context.getPackageManager().getApplicationInfo(GSA_PACKAGE, 0).enabled;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 }
