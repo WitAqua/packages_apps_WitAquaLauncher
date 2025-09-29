@@ -281,6 +281,7 @@ public class Folder extends AbstractFloatingView implements ClipPathView, DragSo
         mBackground = (GradientDrawable) Objects.requireNonNull(
                 ResourcesCompat.getDrawable(getResources(),
                         R.drawable.round_rect_folder, getContext().getTheme()));
+        mBackground.setAlpha(200);
         mBackground.setCallback(this);
     }
 
