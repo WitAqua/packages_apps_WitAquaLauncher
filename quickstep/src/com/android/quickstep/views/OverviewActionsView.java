@@ -206,6 +206,8 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
         lensButton.setOnClickListener(this);
         lensButton.setVisibility(mLens && Utilities.isGSAEnabled(getContext()) ? VISIBLE : GONE);
         lensButtonSpace.setVisibility(mLens && Utilities.isGSAEnabled(getContext()) ? VISIBLE : GONE);
+
+        findViewById(R.id.action_clear_all).setOnClickListener(this);
     }
 
     /**

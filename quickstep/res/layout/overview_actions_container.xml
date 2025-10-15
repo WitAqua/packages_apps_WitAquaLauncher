@@ -27,36 +27,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/clear_all_container"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/action_clear_all"
-                style="@style/OverviewActionButton"
-                android:layout_width="150dp"
-                android:layout_height="48dp"
-                android:text="@string/recents_clear_all"
-                android:tint="?android:attr/colorAccent"
-                android:textColor="?android:attr/colorAccent"
-                android:background="@drawable/bg_overview_clear_all_button" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
         	android:id="@+id/second_overview_actions_container"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -66,9 +36,8 @@
 
             <Space
                 android:id="@+id/action_screenshot_space"
-                android:layout_width="0dp"
+                android:layout_width="24dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"
                 android:visibility="gone" />
 
             <ImageButton
@@ -83,9 +52,8 @@
 
             <Space
                 android:id="@+id/action_split_space"
-                android:layout_width="0dp"
+                android:layout_width="24dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"
                 android:visibility="gone" />
 
             <ImageButton
@@ -99,9 +67,8 @@
 
             <Space
                 android:id="@+id/action_lens_space"
-                android:layout_width="0dp"
+                android:layout_width="24dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"
                 android:visibility="gone" />
 
             <ImageButton
@@ -116,9 +83,38 @@
 
             <Space
                 android:id="@+id/end_space"
+                android:layout_width="24dp"
+                android:layout_height="1dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/clear_all_container"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <Space
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/action_clear_all"
+                style="@style/OverviewActionButton"
+                android:layout_width="150dp"
+                android:layout_height="36dp"
+                android:text="@string/recents_clear_all"
+                android:tint="?android:attr/colorAccent"
+                android:textColor="?android:attr/colorAccent"
+                android:background="@drawable/bg_overview_clear_all_button" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
         </LinearLayout>
         
