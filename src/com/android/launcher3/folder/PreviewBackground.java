@@ -42,6 +42,7 @@ import android.view.View;
 import android.view.animation.Interpolator;
 
 import androidx.annotation.VisibleForTesting;
+import androidx.core.graphics.ColorUtils;
 
 import com.android.launcher3.CellLayout;
 import com.android.launcher3.DeviceProfile;
@@ -172,6 +173,7 @@ public class PreviewBackground extends DelegatedCellDrawing {
         mDotColor = Themes.getAttrColor(context, R.attr.notificationDotColor);
         mStrokeColor = ta.getColor(R.styleable.FolderIconPreview_folderIconBorderColor, 0);
         mBgColor = ta.getColor(R.styleable.FolderIconPreview_folderPreviewColor, 0);
+        mBgColor = ColorUtils.setAlphaComponent(mBgColor, 200);
         ta.recycle();
 
         DeviceProfile grid = activity.getDeviceProfile();
